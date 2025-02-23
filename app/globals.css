@@ -1,21 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* START: GLOBAL */
+.max-width {
+  @apply max-w-[1440px] mx-auto;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.padding-x {
+  @apply sm:px-16 px-6;
 }
+
+.padding-y {
+  @apply py-4;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.custom-btn {
+  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
+}
+/* END: GLOBAL */
+
+/* START: HERO */
+.hero {
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+}
+
+.hero__title {
+  @apply 2xl:text-[64px] sm:text-[56px] text-[42px] font-extrabold;
+}
+
+.hero__subtitle {
+  @apply text-[18px] text-black-100 font-light mt-4;
+}
+
+.hero__image-container {
+  @apply xl:flex-[1.5] flex justify-end items-end w-full xl:h-screen;
+}
+
+.hero__image {
+  @apply relative xl:w-full w-[90%] xl:h-full h-[590px] z-0;
+}
+
+.hero__image-overlay {
+  @apply absolute inset-0 bg-hero-bg bg-cover bg-center -z-10 w-full min-h-screen;
+}
+/* END: HERO */
+
+/* START: SUGGESTION */
+.suggestion__image-container {
+  @apply xl:flex-[1.5] flex justify-center items-center w-full xl:h-screen;
+}
+
+.suggestion__image {
+  @apply relative xl:w-full w-[90%] xl:h-full h-[200px];
+}
+
+.suggestion__title {
+  @apply 2xl:text-[64px] sm:text-[56px] text-[42px] font-extrabold mt-3;
+}
+
+.suggestion__subtitle {
+  @apply text-[18px] text-black-100 font-light mb-3;
+}
+
+/* END: SUGGESTION */
+
+/* START: RECIPE LIST */
+.recipeList__title {
+  @apply xl:text-[64px] sm:text-[56px] text-[42px] font-extrabold;
+}
+
+.recipeList__subtitle {
+  @apply text-[16px] text-gray-600 font-light mt-2;
+}
+/* END: RECIPE LIST */
+
+/* START: FAVORITE RECIPE */
+.favoriteRecipe__title {
+  @apply xl:text-[64px] sm:text-[56px] text-[42px] font-extrabold;
+}
+
+.favoriteRecipe__subtitle {
+  @apply text-[16px] text-gray-600 font-light mt-2;
+}
+/* END: FAVORITE RECIPE */
