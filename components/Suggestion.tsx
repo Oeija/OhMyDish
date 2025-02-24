@@ -13,53 +13,70 @@ const Suggestion = () => {
     const [editingId, setEditingId] = useState<number | null>(null);
 
     useEffect(() => {
-        const storedSuggestions = localStorage.getItem("suggestions");
-        if (storedSuggestions) {
-            setSuggestions(JSON.parse(storedSuggestions));
-        }
+        const fetchSuggestions = async () => {
+            const res = await fetch("/api/suggestions");
+            const data = await res.json();
+            setSuggestions(data);
+        };
+        fetchSuggestions();
     }, []);
 
-    const saveToLocalStorage = (updatedSuggestions: SuggestionType[]) => {
-        setSuggestions(updatedSuggestions);
-        localStorage.setItem("suggestions", JSON.stringify(updatedSuggestions));
-    };
-
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!recipeName || !description) return;
-        
+    
         if (editingId !== null) {
             const updatedSuggestions = suggestions.map(suggestion => 
                 suggestion.id === editingId 
                     ? { ...suggestion, name: recipeName, description } 
                     : suggestion
             );
-            saveToLocalStorage(updatedSuggestions);
+            setSuggestions(updatedSuggestions);
             setEditingId(null);
         } else {
-            const newSuggestion: SuggestionType = {
-                id: Date.now(),
-                name: recipeName,
-                description,
-            };
-            saveToLocalStorage([...suggestions, newSuggestion]);
+            const response = await fetch("/api/suggestions", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: recipeName, description }),
+            });
+    
+            if (response.ok) {
+                const newSuggestion = await response.json();
+                setSuggestions([...suggestions, newSuggestion]);
+            }
         }
-        
+    
         setRecipeName("");
         setDescription("");
     };
 
-    const handleEdit = (id: number) => {
-        const suggestionToEdit = suggestions.find(suggestion => suggestion.id === id);
-        if (suggestionToEdit) {
+    const handleEdit = async (id: number) => {
+        console.log("Editing suggestion ID:", id);
+        
+        try {
+            const response = await fetch(`/api/suggestions/${id}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch suggestion");
+            }
+            const suggestionToEdit: SuggestionType = await response.json();
+            
             setRecipeName(suggestionToEdit.name);
             setDescription(suggestionToEdit.description);
             setEditingId(id);
+        } catch (error) {
+            console.error("Error fetching suggestion:", error);
         }
     };
 
-    const handleDelete = (id: number) => {
-        const updatedSuggestions = suggestions.filter(suggestion => suggestion.id !== id);
-        saveToLocalStorage(updatedSuggestions);
+    const handleDelete = async (id: number) => {
+        const response = await fetch("/api/suggestions", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+        });
+    
+        if (response.ok) {
+            setSuggestions(suggestions.filter(suggestion => suggestion.id !== id));
+        }
     };
 
     const shareOnTwitter = (name: string, description: string) => {
@@ -69,7 +86,7 @@ const Suggestion = () => {
     };
 
     return (
-        <div className="flex flex-col items-center mx-auto">
+        <div className="flex flex-col items-center">
             <div className="w-full h-8 bg-[#493628] mb-2"></div>
             <div className="w-full h-8 bg-[#493628] mb-10"></div>
             <div className="suggestion__image-container">
