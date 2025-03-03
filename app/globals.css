@@ -102,3 +102,13 @@
   @apply text-[16px] text-gray-600 font-light mt-2;
 }
 /* END: FAVORITE RECIPE */
+
+/* START: CONTROL */
+.control__title {
+  @apply xl:text-[64px] sm:text-[56px] text-[42px] font-extrabold;
+}
+
+.control__subtitle {
+  @apply text-[16px] text-gray-600 font-light mt-2;
+}
+/* END: CONTROL */

@@ -1,17 +1,19 @@
-import Hero from './Hero';
-import CustomButton from './CustomButton';
-import Suggestion from './Suggestion';
-import RecipeList from './RecipeList';
-import FavoriteRecipe from './FavoriteRecipe';
+import Hero from './home/Hero';
+import Suggestion from './home/Suggestion';
+import AdminSuggestion from './home/AdminSuggestion';
+import RecipeList from './recipes/RecipeList';
+import FavoriteRecipe from './favorites/FavoriteRecipe';
+import Control from './control/Control';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 export{
     Hero,
-    CustomButton,
     Suggestion,
+    AdminSuggestion,
     RecipeList,
     FavoriteRecipe,
+    Control,
     Navbar,
     Footer,
 }

@@ -1,8 +1,8 @@
 "use client"
 
 import Image from 'next/image';
-import CustomButton from './CustomButton';
 import { useRouter } from 'next/navigation';
+import { Button } from '@mui/material';
 
 const Hero = () => {
   const router = useRouter();
@@ -20,11 +20,14 @@ const Hero = () => {
         <p className="hero__subtitle">
           Over hundreds of creative recipes from all cuisines around the world.
         </p>
-        <CustomButton 
-          title="EXPLORE RECIPES"
-          containerStyles="bg-[#493628] text-white rounded-full mt-6"
-          handleClick={handleNavigateToRecipes}
-        />
+        <Button 
+          variant="contained"
+          sx={{color: "white", backgroundColor: "#493628", borderRadius: 10, mt:4, px:3, py: 2}} 
+          onClick={handleNavigateToRecipes} 
+          className=""
+        >
+          Explore Recipes
+        </Button>
       </div>
       <div className="hero__image-container">
         <div className="hero__image">
